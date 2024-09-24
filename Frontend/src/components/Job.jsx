@@ -5,16 +5,34 @@ import { AvatarImage } from '@radix-ui/react-avatar';
 import { Badge } from './ui/badge';
 import { Bookmark } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { SAVED_API_POINT } from './utils/constant';
+import { toast } from 'sonner';
+import useSavedJob from '@/hooks/useSavedJob';
+import { useSelector } from 'react-redux';
 
 const Job = ({ item }) => {
   const navigate = useNavigate();
+  useSavedJob()
 
+
+  // console.log(savedJob)
   const dayesAgoFunction = (mongodbTime) => {
     const createdAt = new Date(mongodbTime);
     const currentTime = new Date();
     const timeDifference = currentTime - createdAt;
     return Math.floor(timeDifference / (1000 * 24 * 60 * 60));
   };
+
+  const savedJobItem = async(id)=>{
+    try {
+      const {data} = await axios.get(`${SAVED_API_POINT}/savedjob/${id}`,{withCredentials:true})
+      toast.success(data.message)
+    } catch (error) {
+      console.log(error)
+      toast.error(error?.response?.data?.message)
+    }
+  }
 
   return (
     <div className="p-4 md:p-5 rounded-md shadow-xl bg-white border-[1px] border-gray-200 flex flex-col justify-between">
@@ -25,7 +43,7 @@ const Job = ({ item }) => {
             : `${dayesAgoFunction(item?.createdAt)} days ago`}
         </p>
         <Button variant="outline" className="rounded-full" size="icon">
-          <Bookmark />
+          <Bookmark onClick={()=>savedJobItem(item?._id)} />
         </Button>
       </div>
 
@@ -62,7 +80,6 @@ const Job = ({ item }) => {
         <Button onClick={() => navigate(`/description/${item?._id}`)} variant="outline">
           Details
         </Button>
-        <Button className="bg-[#852ebf]">Save For Later</Button>
       </div>
     </div>
   );

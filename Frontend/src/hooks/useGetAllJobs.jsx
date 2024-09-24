@@ -17,7 +17,7 @@ const useGetAllJobs = () => {
             withCredentials: true,
           },
         )
-        console.log(data)
+        // console.log(data)
         dispatch(setAllJobs(data.jobs))
       } catch (error) {
         console.log(error)

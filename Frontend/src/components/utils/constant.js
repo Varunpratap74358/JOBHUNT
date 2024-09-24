@@ -7,3 +7,4 @@ export const APPLICATION_API_POINT="http://localhost:8080/api/v1/application"
 
 export const COMPANY_API_POINT="http://localhost:8080/api/v1/company"
 
+export const SAVED_API_POINT="http://localhost:8080/api/v1/saved"

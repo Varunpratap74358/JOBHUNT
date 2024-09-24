@@ -88,6 +88,14 @@ const Navbar = () => {
                     Browse
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/savedjobs"
+                    className="hover:text-red-500 transition duration-300"
+                  >
+                    Saved Jobs
+                  </Link>
+                </li>
               </>
             )}
           </ul>
