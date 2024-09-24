@@ -14,6 +14,7 @@ import PostJobs from './components/admin/PostJobs'
 import Applicants from './components/admin/Applicants'
 import ProtectedRoute from './components/admin/ProtectedRoute'
 import SavedJobs from './components/SavedJobs'
+import EditJob from './components/admin/EditJob'
 
 const appRouter = createBrowserRouter([
   {
@@ -78,6 +79,14 @@ const appRouter = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <JobsAdmin />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin/edit/:id',
+    element: (
+      <ProtectedRoute>
+        <EditJob />
       </ProtectedRoute>
     ),
   },

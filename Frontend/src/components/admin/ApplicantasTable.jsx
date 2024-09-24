@@ -82,9 +82,9 @@ const ApplicantasTable = () => {
                           <div
                             onClick={() => statusHandler(status, item?._id)}
                             key={i}
-                            className=""
+                            
                           >
-                            <span>{status}</span>
+                            <span className="cursor-pointer">{status}</span>
                           </div>
                         )
                       })}
