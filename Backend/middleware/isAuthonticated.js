@@ -1,4 +1,6 @@
 import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const isAuthonticated = async(req,res,next)=>{
     try {
@@ -9,7 +11,7 @@ const isAuthonticated = async(req,res,next)=>{
                 message:"User Not Authorized"
             })
         }
-
+        // console.log(process.env.JWTSECRET)
         const decode = await jwt.verify(token,process.env.JWTSECRET)
         if(!decode){
             return res.status(401).json({
