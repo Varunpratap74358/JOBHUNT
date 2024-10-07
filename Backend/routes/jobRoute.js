@@ -5,7 +5,7 @@ import { getAllJob, getJobAdminJobs, getJobById, postJob } from "../controlers/j
 const route = express.Router()
 
 route.post("/post",isAuthonticated,postJob)
-route.get("/get",isAuthonticated,getAllJob)
+route.get("/get",getAllJob)
 route.get("/get/:id",isAuthonticated,getJobById)
 route.get("/getadminjobs",isAuthonticated,getJobAdminJobs)
 

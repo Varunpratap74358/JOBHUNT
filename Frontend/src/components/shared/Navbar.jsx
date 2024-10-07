@@ -34,7 +34,10 @@ const Navbar = () => {
       <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto md:flex-row flex-col">
         {/* Logo */}
         <div className="mb-3 md:mb-0">
-          <Link to="/" className="text-2xl font-bold text-gray-900 hover:text-red-500">
+          <Link
+            to="/"
+            className="text-2xl font-bold text-gray-900 hover:text-red-500"
+          >
             Job <span className="text-red-500">Portal</span>
           </Link>
         </div>
@@ -88,14 +91,16 @@ const Navbar = () => {
                     Browse
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    to="/savedjobs"
-                    className="hover:text-red-500 transition duration-300"
-                  >
-                    Saved Jobs
-                  </Link>
-                </li>
+                {user && (
+                  <li>
+                    <Link
+                      to="/savedjobs"
+                      className="hover:text-red-500 transition duration-300"
+                    >
+                      Saved Jobs
+                    </Link>
+                  </li>
+                )}
               </>
             )}
           </ul>
@@ -104,7 +109,10 @@ const Navbar = () => {
           {!user ? (
             <div className="flex items-center gap-3">
               <Link to="/login">
-                <Button variant="outline" className="text-gray-700 hover:bg-gray-100">
+                <Button
+                  variant="outline"
+                  className="text-gray-700 hover:bg-gray-100"
+                >
                   Login
                 </Button>
               </Link>
