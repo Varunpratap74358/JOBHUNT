@@ -50,7 +50,7 @@ export const postJob = async (req, res) => {
       job,
     })
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     res.status(500).json({
       success: true,
       message: error.message,
@@ -83,7 +83,7 @@ export const getAllJob = async (req, res) => {
       jobs,
     })
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     res.status(500).json({
       success: true,
       message: error.message,
@@ -111,7 +111,7 @@ export const getJobById = async (req, res) => {
       job,
     })
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     res.status(500).json({
       success: true,
       message: error.message,
@@ -136,7 +136,39 @@ export const getJobAdminJobs = async (req, res) => {
       jobs,
     })
   } catch (error) {
-    console.log(error)
+    // console.log(error)
+    res.status(500).json({
+      success: true,
+      message: error.message,
+    })
+  }
+}
+
+
+export const updateJob = async(req,res)=>{
+  try {
+    const jobId = req.params.id;
+    const userId = req.id;
+    let job = await Job.findById(jobId)
+    if(!job){
+      return res.status(400).json({
+        success:true,
+        message:"Job Not found"
+      })
+    }
+    if(userId.toString()!==job?.created_by?._id.toString()){
+      return res.status(200).json({
+        success:false,
+        message:"Only Owner can delete our job"
+      })
+    }
+    job = await Job.findByIdAndUpdate(jobId,req.body,{new:true}).populate("created_by")
+    res.status(200).json({
+      success:true,
+      message:"Job Updated Successfully",
+      job
+    })
+  } catch (error) {
     res.status(500).json({
       success: true,
       message: error.message,
