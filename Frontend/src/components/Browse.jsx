@@ -14,6 +14,7 @@ const Browse = () => {
   useEffect(()=>{
     dispatch(setSearchedQuery(''))
   },[])
+  // console.log(allJobs)
   return (
     <div>
       <Navbar />

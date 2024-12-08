@@ -16,7 +16,7 @@ import {
 import { toast } from 'sonner'
 import axios from 'axios'
 import { JOB_API_POINT } from '../utils/constant'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Loader2Icon } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 const PostJobs = () => {
@@ -57,7 +57,7 @@ const PostJobs = () => {
       toast.success(data.message)
       navigate('/admin/jobs')
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error(error?.response?.data?.message)
     } finally{
         setLoading(false)
@@ -187,7 +187,7 @@ const PostJobs = () => {
             )}
           </div>
           <Button className="w-full my-4  bg-[#5ee5b8] text-black font-bold hover:bg-[#3cc899]">
-            {loadng ? `${<Loader2 className='animate-spin' />}Please wait` : 'Submit'}
+            {loadng ? <span className='flex items-center gap-2'><Loader2 className='animate-spin' /> Please wait...</span> : 'Submit'}
           </Button>
           {compinies.length === 0 && (
             <p className="text-xs text-red-600 text-center">

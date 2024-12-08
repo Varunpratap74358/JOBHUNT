@@ -6,7 +6,7 @@ const route = express.Router()
 
 route.post("/post",isAuthonticated,postJob)
 route.get("/get",getAllJob)
-route.get("/get/:id",isAuthonticated,getJobById)
+route.get("/get/:id",getJobById)
 route.get("/getadminjobs",isAuthonticated,getJobAdminJobs)
 route.put("/update/:id",isAuthonticated,updateJob)
 

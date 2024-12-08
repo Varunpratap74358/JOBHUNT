@@ -21,6 +21,7 @@ const Profile = () => {
   if(!user){
     return <Navigate to={'/'} />
   }
+  // console.log(user)
   return (
     <div>
       <Navbar />

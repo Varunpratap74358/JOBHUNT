@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../shared/Navbar'
 import { Button } from '../ui/button'
-import { ArrowLeft, Loader2, LoaderPinwheel } from 'lucide-react'
+import { ArrowLeft, Loader2 } from 'lucide-react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { toast } from 'sonner'
@@ -12,25 +12,33 @@ import { useSelector } from 'react-redux'
 import useGetCompanyById from '@/hooks/useGetCompanyById'
 
 const CompanySetup = () => {
-  const [input, setinput] = useState({
+  const [input, setInput] = useState({
     name: '',
     discription: '',
     website: '',
     location: '',
     file: null,
+    preview: null, // For previewing the image
   })
   const [loading, setLoading] = useState(false)
   const params = useParams()
   const navigate = useNavigate()
   useGetCompanyById(params.id)
-  const {singleCompany} = useSelector(store=>store.company)
-  const chnageEventhandler = (e) => {
-    setinput({ ...input, [e.target.name]: e.target.value })
+  const { singleCompany } = useSelector((store) => store.company)
+
+  const changeEventHandler = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value })
   }
 
   const changeFileHandler = (e) => {
     const file = e.target.files?.[0]
-    setinput({ ...input, file })
+    if (file) {
+      setInput({
+        ...input,
+        file,
+        preview: URL.createObjectURL(file), // Generate a preview URL
+      })
+    }
   }
 
   const updateSubmit = async (e) => {
@@ -43,6 +51,7 @@ const CompanySetup = () => {
     if (input.file) {
       formData.append('file', input.file)
     }
+
     try {
       setLoading(true)
       const { data } = await axios.put(
@@ -51,7 +60,7 @@ const CompanySetup = () => {
         {
           withCredentials: true,
           headers: {
-            'Content-Type': 'multiparat/form-data',
+            'Content-Type': 'multipart/form-data',
           },
         },
       )
@@ -59,21 +68,23 @@ const CompanySetup = () => {
       navigate('/admin/companies')
     } catch (error) {
       console.log(error)
-      toast.error(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message || 'Error updating company')
     } finally {
       setLoading(false)
     }
   }
 
   useEffect(() => {
-    setinput({
+    setInput({
       name: singleCompany.name || '',
-      discription:singleCompany.discription ||'',
+      discription: singleCompany.discription || '',
       website: singleCompany.website || '',
-      location:singleCompany.location || '',
-      file:singleCompany.logo || null,
+      location: singleCompany.location || '',
+      file: null, // Reset file input
+      preview: singleCompany.logo || null, // Use existing logo if available
     })
-  },[singleCompany])
+  }, [singleCompany])
+
   return (
     <div>
       <Navbar />
@@ -88,7 +99,7 @@ const CompanySetup = () => {
               <ArrowLeft />
               <span>Back</span>
             </Button>
-            <h1 className="font-bols text-xl">Company Setup</h1>
+            <h1 className="font-bold text-xl">Company Setup</h1>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -96,17 +107,19 @@ const CompanySetup = () => {
               <Input
                 type="text"
                 value={input.name}
-                onChange={chnageEventhandler}
+                onChange={changeEventHandler}
                 name="name"
+                required
               />
             </div>
             <div>
-              <Label>Discription</Label>
+              <Label>Description</Label>
               <Input
                 type="text"
                 value={input.discription}
-                onChange={chnageEventhandler}
+                onChange={changeEventHandler}
                 name="discription"
+                required
               />
             </div>
             <div>
@@ -114,8 +127,9 @@ const CompanySetup = () => {
               <Input
                 type="text"
                 value={input.website}
-                onChange={chnageEventhandler}
+                onChange={changeEventHandler}
                 name="website"
+                required
               />
             </div>
             <div>
@@ -123,12 +137,22 @@ const CompanySetup = () => {
               <Input
                 type="text"
                 value={input.location}
-                onChange={chnageEventhandler}
+                onChange={changeEventHandler}
                 name="location"
+                required
               />
             </div>
             <div>
               <Label>Logo</Label>
+              
+              {/* Image Preview */}
+              {input.preview && (
+                <img
+                  src={input.preview}
+                  alt="Logo Preview"
+                  className="mt-2 w-24 h-24 object-cover rounded-lg mb-3 border"
+                />
+              )}
               <Input
                 type="file"
                 accept="image/*"
@@ -137,9 +161,9 @@ const CompanySetup = () => {
             </div>
           </div>
           {loading ? (
-            <Button className="w-full mt-8">
-              <Loader2 />
-              please wait
+            <Button className="w-full mt-8" disabled>
+              <Loader2 className="animate-spin" />
+              Please wait
             </Button>
           ) : (
             <Button type="submit" className="w-full mt-8">

@@ -10,13 +10,16 @@ import {
 } from '../ui/table'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Edit2, Eye, MoreHorizontal } from 'lucide-react'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 
 const AdminJobsTable = () => {
   const { allAdminJobs, searchJobByText } = useSelector((store) => store.job)
   const [filterJobs, setfilterJobs] = useState(allAdminJobs)
   const navigate = useNavigate()
+
+
+
   useEffect(() => {
     const filteredJobs =
       allAdminJobs?.length >= 0 &&
@@ -35,7 +38,7 @@ const AdminJobsTable = () => {
   }, [allAdminJobs, searchJobByText])
 
   return (
-    <div>
+    <div className='p-4'>
       <Table>
         <TableCaption>A list of your resent jobs</TableCaption>
         <TableHeader>
@@ -58,20 +61,21 @@ const AdminJobsTable = () => {
                     <PopoverTrigger>
                       <MoreHorizontal />
                     </PopoverTrigger>
-                    <PopoverContent className="w-32">
-                      <div
-                        onClick={() => navigate(`/admin/edit/${v._id}`)}
+                    <PopoverContent className="w-40 flex flex-col gap-2">
+                      <Link
+                        // onClick={() => confirmEdit(v._id)}
+                        to={`/admin/edit/${v._id}`}
                         className="flex items-center gap-2 w-fit cursor-pointer"
                       >
                         <Edit2 className="w-4" />
-                        <span className="font-semibold">Edit</span>
-                      </div>
+                        <span className="font-semibold border py-1 px-4 rounded-md shadow-md shadow-slate-200">Edit</span>
+                      </Link>
                       <div
                         onClick={() => navigate(`/admin/jobs/${v._id}/applicants`)}
                         className="flex items-center gap-2 w-fit cursor-pointer"
                       >
                         <Eye className="w-4" />
-                        <span className="font-semibold">Applicants</span>
+                        <span className="font-semibold border py-1 px-4 rounded-md shadow-md shadow-slate-200">Applicants</span>
                       </div>
                     </PopoverContent>
                   </Popover>
