@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from '../shared/Navbar'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Loader2 } from 'lucide-react'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
-import { useDispatch, useSelector } from 'react-redux'
+import {  useSelector } from 'react-redux'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
@@ -12,7 +12,7 @@ import { JOB_API_POINT } from '../utils/constant'
 import { toast } from 'sonner'
 
 const EditJob = () => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const [input, setInput] = useState({
     title: '',
     discription: '',

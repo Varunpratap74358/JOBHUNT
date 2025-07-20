@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import {
   Table,
   TableBody,
@@ -27,14 +27,14 @@ const AppliedJobTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {allAppliedJob.length <= 0 ? (
+          {allAppliedJob && allAppliedJob?.length <= 0 ? (
             <span className="text-red-500 font-bold text-xl">
-              You have't applied any job yet.
+              You havet applied any job yet.
             </span>
           ) : (
-            allAppliedJob.map((item, i) => (
+            allAppliedJob&&allAppliedJob?.map((item, i) => (
               <TableRow key={i}>
-                <TableCell>{item.createdAt.substring(0, 10)}</TableCell>
+                <TableCell>{item?.createdAt.substring(0, 10)}</TableCell>
                 <TableCell>{item?.job?.title}</TableCell>
                 <TableCell>{item?.job?.company?.name}</TableCell>
                 <TableCell className={`text-right `}>

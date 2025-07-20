@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import Navbar from '../shared/Navbar';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
@@ -12,7 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLoading } from '@/redux/authSlice';
 import { Loader } from 'lucide-react';
 
-const Signup = () => {
+const Signup = () => { 
+  const dispatch = useDispatch();
   const [input, setInput] = useState({
     fullname: '',
     email: '',
@@ -27,8 +28,7 @@ const Signup = () => {
   if (user) {
     return <Navigate to={'/'} />;
   }
-  
-  const dispatch = useDispatch();
+ 
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });

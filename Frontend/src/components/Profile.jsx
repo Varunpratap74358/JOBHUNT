@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Navbar from './shared/Navbar';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -11,7 +11,7 @@ import UpdateProfileDialog from './UpdateProfileDialog';
 import useGetApplyedJob from '@/hooks/useGetApplyedJob';
 import { Navigate } from 'react-router-dom';
 
-const isResume = true;
+
 
 const Profile = () => {
   useGetApplyedJob();
@@ -61,7 +61,7 @@ const Profile = () => {
         <div>
           <h1 className="font-semibold">Skills</h1>
           <div className="flex flex-wrap items-center gap-1">
-            {user?.profile?.skills.length !== 0 ? (
+            {user?.profile?.skills?.length !== 0 ? (
               user?.profile?.skills.map((item, i) => <Badge key={i}>{item}</Badge>)
             ) : (
               <span>NA</span>

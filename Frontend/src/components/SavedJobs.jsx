@@ -1,8 +1,8 @@
 import useSavedJob from '@/hooks/useSavedJob'
-import React from 'react'
+// import React from 'react'
 import { useSelector } from 'react-redux'
 import Navbar from './shared/Navbar'
-import Job from './Job'
+// import Job from './Job'
 import SavedJobSComponante from './SavedJobSComponante'
 
 const SavedJobs = () => {

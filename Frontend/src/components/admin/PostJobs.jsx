@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Navbar from '../shared/Navbar'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
@@ -9,14 +9,13 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '../ui/select'
 import { toast } from 'sonner'
 import axios from 'axios'
 import { JOB_API_POINT } from '../utils/constant'
-import { Loader2, Loader2Icon } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 const PostJobs = () => {
